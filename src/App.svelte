@@ -1,4 +1,7 @@
 <script>
+    import { createGameStore } from './stores/gameStore'
+    const gameStore = createGameStore()
+
 	import { onMount } from 'svelte';
 	import { validateSencode } from '@sudoku/sencode';
 	import game from '@sudoku/game';
@@ -17,6 +20,7 @@
 	});
 
 	onMount(() => {
+		gameStore.start();
 		let hash = location.hash;
 
 		if (hash.startsWith('#')) {
@@ -39,12 +43,12 @@
 
 <!-- Sudoku Field -->
 <section>
-	<Board />
+	<Board {gameStore} />
 </section>
 
 <!-- Keyboard -->
 <footer>
-	<Controls />
+	<Controls {gameStore} />
 </footer>
 
 <Modal />
